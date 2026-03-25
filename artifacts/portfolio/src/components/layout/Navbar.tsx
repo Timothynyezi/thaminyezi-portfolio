@@ -35,7 +35,7 @@ export function Navbar() {
             <Terminal size={20} />
           </div>
           <span className="font-display font-bold text-xl tracking-tight hidden sm:block">
-            T. Nyezi
+            T.T. Nyezi
           </span>
         </a>
 

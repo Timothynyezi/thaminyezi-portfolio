@@ -34,7 +34,7 @@ export function Hero() {
             <motion.h1 variants={animationVariants.fadeUp} className="text-5xl md:text-7xl font-display font-bold tracking-tight mb-4">
               Hi, I'm <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-blue-400 to-accent">
-                Thamsanqa Nyezi
+                Thamsanqa Timothy Nyezi
               </span>
             </motion.h1>
             
