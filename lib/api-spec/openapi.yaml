@@ -3,13 +3,21 @@ info:
   # Do not change the title, if the title changes, the import paths will be broken
   title: Api
   version: 0.1.0
-  description: API specification
+  description: Portfolio API specification
 servers:
   - url: /api
     description: Base API path
 tags:
   - name: health
     description: Health operations
+  - name: profile
+    description: Profile information
+  - name: projects
+    description: GitHub projects
+  - name: skills
+    description: Technical skills
+  - name: contact
+    description: Contact form
 paths:
   /healthz:
     get:
@@ -24,6 +32,70 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+  /profile:
+    get:
+      operationId: getProfile
+      tags: [profile]
+      summary: Get profile information
+      responses:
+        "200":
+          description: Profile data
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Profile"
+  /projects:
+    get:
+      operationId: getProjects
+      tags: [projects]
+      summary: Get all projects
+      responses:
+        "200":
+          description: List of projects
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Project"
+  /skills:
+    get:
+      operationId: getSkills
+      tags: [skills]
+      summary: Get all skill categories
+      responses:
+        "200":
+          description: Skill categories
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/SkillCategory"
+  /contact:
+    post:
+      operationId: submitContact
+      tags: [contact]
+      summary: Submit contact form
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ContactRequest"
+      responses:
+        "200":
+          description: Message sent
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ContactResponse"
+        "400":
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
 components:
   schemas:
     HealthStatus:
@@ -33,4 +105,109 @@ components:
           type: string
       required:
         - status
-
+    Profile:
+      type: object
+      properties:
+        name:
+          type: string
+        title:
+          type: string
+        location:
+          type: string
+        bio:
+          type: string
+        githubUrl:
+          type: string
+        linkedinUrl:
+          type: string
+        email:
+          type: string
+        photoUrl:
+          type: string
+      required:
+        - name
+        - title
+        - location
+        - bio
+        - githubUrl
+        - linkedinUrl
+        - email
+        - photoUrl
+    Project:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        description:
+          type: string
+        language:
+          type: string
+          nullable: true
+        githubUrl:
+          type: string
+        stars:
+          type: integer
+        featured:
+          type: boolean
+        tags:
+          type: array
+          items:
+            type: string
+        updatedAt:
+          type: string
+      required:
+        - id
+        - name
+        - description
+        - githubUrl
+        - stars
+        - featured
+        - tags
+        - updatedAt
+    SkillCategory:
+      type: object
+      properties:
+        id:
+          type: integer
+        category:
+          type: string
+        skills:
+          type: array
+          items:
+            type: string
+      required:
+        - id
+        - category
+        - skills
+    ContactRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        message:
+          type: string
+      required:
+        - name
+        - email
+        - message
+    ContactResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+      required:
+        - success
+        - message
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+      required:
+        - error

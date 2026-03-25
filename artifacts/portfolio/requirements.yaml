@@ -1,0 +1,15 @@
+packages:
+  "framer-motion": "For premium scroll animations and page transitions"
+  "react-hook-form": "For the contact form state management"
+  "@hookform/resolvers": "For zod validation in contact form"
+  "clsx": "Utility for constructing className strings conditionally"
+  "tailwind-merge": "Utility for merging tailwind classes safely"
+
+images:
+  - path: "artifacts/portfolio/public/images/hero-glow.png"
+    description: "Abstract dark background with subtle glowing electric cyan and deep indigo mesh gradients, sleek modern tech aesthetic, very dark theme"
+    aspect_ratio: "16:9"
+
+notes:
+  - Portfolio frontend expecting C# backend on /api
+  - Uses @workspace/api-client-react for data fetching
