@@ -17,8 +17,11 @@ static string BuildConnectionString()
     var password = Environment.GetEnvironmentVariable("PGPASSWORD");
     var database = Environment.GetEnvironmentVariable("PGDATABASE");
 
+    var sslMode = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Production"
+        ? "Require" : "Prefer";
+
     if (!string.IsNullOrEmpty(host) && !string.IsNullOrEmpty(user) && !string.IsNullOrEmpty(database))
-        return $"Host={host};Port={port};Username={user};Password={password};Database={database};SSL Mode=Disable;";
+        return $"Host={host};Port={port};Username={user};Password={password};Database={database};SSL Mode={sslMode};Trust Server Certificate=true;";
 
     var databaseUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
     if (!string.IsNullOrEmpty(databaseUrl))
@@ -26,7 +29,7 @@ static string BuildConnectionString()
         var uri = new Uri(databaseUrl);
         var userInfo = uri.UserInfo.Split(':');
         var dbPort = uri.Port > 0 ? uri.Port : 5432;
-        return $"Host={uri.Host};Port={dbPort};Username={userInfo[0]};Password={userInfo[1]};Database={uri.AbsolutePath.TrimStart('/')};SSL Mode=Disable;";
+        return $"Host={uri.Host};Port={dbPort};Username={userInfo[0]};Password={userInfo[1]};Database={uri.AbsolutePath.TrimStart('/')};SSL Mode={sslMode};Trust Server Certificate=true;";
     }
 
     throw new InvalidOperationException("Database connection environment variables are required.");
