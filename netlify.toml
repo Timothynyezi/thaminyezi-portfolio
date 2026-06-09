@@ -1,4 +1,7 @@
 [build]
-  base    = "artifacts/portfolio"
   command = "pnpm install && pnpm run build"
-  publish = "dist/public"
+  publish = "artifacts/portfolio/dist/public"
+
+[build.environment]
+  PORT      = "3000"
+  BASE_PATH = "/"
