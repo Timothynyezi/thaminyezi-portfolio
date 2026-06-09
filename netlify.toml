@@ -1,0 +1,4 @@
+[build]
+  base    = "artifacts/portfolio"
+  command = "pnpm install && pnpm run build"
+  publish = "dist/public"
