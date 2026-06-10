@@ -1,9 +1,8 @@
 import { motion } from "framer-motion";
-import { Mail, Send } from "lucide-react";
+import { Mail, Send, Github, Linkedin } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { useSubmitContact } from "@workspace/api-client-react";
 import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -20,38 +19,47 @@ type ContactFormValues = z.infer<typeof contactSchema>;
 
 export function Contact() {
   const { toast } = useToast();
-  const { mutate, isPending } = useSubmitContact({
-    mutation: {
-      onSuccess: (data) => {
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors, isSubmitting },
+  } = useForm<ContactFormValues>({
+    resolver: zodResolver(contactSchema),
+  });
+
+  const onSubmit = async (data: ContactFormValues) => {
+    try {
+      const response = await fetch("https://formspree.io/f/YOUR_FORM_ID", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+
+      if (response.ok) {
         toast({
           title: "Message Sent!",
-          description: data.message || "I'll get back to you as soon as possible.",
+          description: "Thanks for reaching out — I'll get back to you as soon as possible.",
           variant: "default",
         });
         reset();
-      },
-      onError: (error) => {
-        toast({
-          title: "Failed to send message",
-          description: error.error || "There was an error submitting the form.",
-          variant: "destructive",
-        });
+      } else {
+        throw new Error("Failed to send");
       }
+    } catch {
+      toast({
+        title: "Failed to send message",
+        description: "Something went wrong. Please email me directly at thaminyezi@gmail.com",
+        variant: "destructive",
+      });
     }
-  });
-
-  const { register, handleSubmit, reset, formState: { errors } } = useForm<ContactFormValues>({
-    resolver: zodResolver(contactSchema)
-  });
-
-  const onSubmit = (data: ContactFormValues) => {
-    mutate({ data });
   };
 
   return (
     <section id="contact" className="py-24 relative">
       <div className="container mx-auto px-4 md:px-6">
-        <motion.div 
+        <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
@@ -63,58 +71,103 @@ export function Contact() {
           </h2>
           <div className="h-1 w-20 bg-gradient-to-r from-primary to-accent rounded-full mx-auto mb-6" />
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            I'm currently looking for new opportunities. Whether you have a question or just want to say hi, I'll try my best to get back to you!
+            I'm currently looking for junior software engineering opportunities. Whether you have a role, a question, or just want to say hi — I'll get back to you as soon as possible.
           </p>
         </motion.div>
 
-        <motion.div 
-          className="max-w-xl mx-auto"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={animationVariants.fadeUp}
-        >
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 bg-card/50 backdrop-blur border border-white/5 p-8 rounded-3xl shadow-2xl">
+        <div className="max-w-xl mx-auto">
+          {/* Contact Links */}
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={animationVariants.fadeUp}
+            className="flex flex-col sm:flex-row gap-4 justify-center mb-10"
+          >
+            <Button variant="outline" size="lg" asChild className="gap-2 rounded-full border-primary/30 hover:border-primary">
+              <a href="mailto:thaminyezi@gmail.com">
+                <Mail size={18} /> thaminyezi@gmail.com
+              </a>
+            </Button>
+            <Button variant="outline" size="lg" asChild className="gap-2 rounded-full border-primary/30 hover:border-primary">
+              <a href="https://github.com/Timothynyezi" target="_blank" rel="noreferrer">
+                <Github size={18} /> GitHub
+              </a>
+            </Button>
+            <Button variant="outline" size="lg" asChild className="gap-2 rounded-full border-primary/30 hover:border-primary">
+              <a href="https://linkedin.com/in/tt-nyezi" target="_blank" rel="noreferrer">
+                <Linkedin size={18} /> LinkedIn
+              </a>
+            </Button>
+          </motion.div>
+
+          {/* Contact Form */}
+          <motion.form
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={animationVariants.fadeUp}
+            onSubmit={handleSubmit(onSubmit)}
+            className="space-y-6 bg-card/50 backdrop-blur border border-white/5 p-8 rounded-3xl shadow-2xl"
+          >
             <div>
-              <label htmlFor="name" className="block text-sm font-medium mb-2 text-foreground/80">Name</label>
-              <Input 
-                id="name" 
-                placeholder="John Doe" 
-                {...register("name")} 
+              <label htmlFor="name" className="block text-sm font-medium mb-2 text-foreground/80">
+                Name
+              </label>
+              <Input
+                id="name"
+                placeholder="John Doe"
+                {...register("name")}
                 className={errors.name ? "border-destructive focus-visible:ring-destructive" : ""}
               />
-              {errors.name && <p className="text-destructive text-sm mt-1">{errors.name.message}</p>}
+              {errors.name && (
+                <p className="text-destructive text-sm mt-1">{errors.name.message}</p>
+              )}
             </div>
-            
+
             <div>
-              <label htmlFor="email" className="block text-sm font-medium mb-2 text-foreground/80">Email</label>
-              <Input 
-                id="email" 
-                type="email" 
-                placeholder="john@example.com" 
+              <label htmlFor="email" className="block text-sm font-medium mb-2 text-foreground/80">
+                Email
+              </label>
+              <Input
+                id="email"
+                type="email"
+                placeholder="john@example.com"
                 {...register("email")}
                 className={errors.email ? "border-destructive focus-visible:ring-destructive" : ""}
               />
-              {errors.email && <p className="text-destructive text-sm mt-1">{errors.email.message}</p>}
+              {errors.email && (
+                <p className="text-destructive text-sm mt-1">{errors.email.message}</p>
+              )}
             </div>
-            
+
             <div>
-              <label htmlFor="message" className="block text-sm font-medium mb-2 text-foreground/80">Message</label>
-              <Textarea 
-                id="message" 
-                placeholder="Hi Thamsanqa, I'd like to talk about..." 
+              <label htmlFor="message" className="block text-sm font-medium mb-2 text-foreground/80">
+                Message
+              </label>
+              <Textarea
+                id="message"
+                placeholder="Hi Thamsanqa, I'd like to talk about..."
                 {...register("message")}
                 className={errors.message ? "border-destructive focus-visible:ring-destructive" : ""}
               />
-              {errors.message && <p className="text-destructive text-sm mt-1">{errors.message.message}</p>}
+              {errors.message && (
+                <p className="text-destructive text-sm mt-1">{errors.message.message}</p>
+              )}
             </div>
-            
-            <Button type="submit" variant="glow" size="lg" className="w-full" disabled={isPending}>
-              {isPending ? "Sending..." : "Send Message"} 
-              {!isPending && <Send className="ml-2 h-5 w-5" />}
+
+            <Button
+              type="submit"
+              variant="glow"
+              size="lg"
+              className="w-full"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? "Sending..." : "Send Message"}
+              {!isSubmitting && <Send className="ml-2 h-5 w-5" />}
             </Button>
-          </form>
-        </motion.div>
+          </motion.form>
+        </div>
       </div>
     </section>
   );
