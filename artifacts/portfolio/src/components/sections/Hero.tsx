@@ -39,7 +39,7 @@ export function Hero() {
             </motion.h1>
             
             <motion.h2 variants={animationVariants.fadeUp} className="text-2xl md:text-3xl text-muted-foreground font-medium mb-6">
-              Junior C# / .NET Developer
+              Junior back-end Software Engineer 
             </motion.h2>
             
             <motion.p variants={animationVariants.fadeUp} className="text-muted-foreground text-lg max-w-xl mx-auto md:mx-0 mb-8 flex items-center justify-center md:justify-start gap-2">
