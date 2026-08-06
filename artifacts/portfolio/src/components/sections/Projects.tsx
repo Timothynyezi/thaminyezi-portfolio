@@ -8,7 +8,8 @@ import { animationVariants } from "@/lib/utils";
 const projectsData = [
   {
     id:1, 
-    name: "Java",
+    name: "artisan-marketplace",
+    language: "Java",
     description: "A backend-focused learning project: a marketplace connecting clients with freelance artisans (plumbers, electricians, etc.) for renovation work. Java, Spring Boot, PostgreSQL/PostGIS, JWT auth, Paystack integration.",
     githubUrl: "https://github.com/Timothynyezi/artisan-marketplace",
     tags: ["Spring Boot", "PostgreSQL", "PostGIS", "JPA/Hibernate", "JWT", "REST API", "System Design"],
