@@ -44,7 +44,7 @@ export function Hero() {
             
             <motion.p variants={animationVariants.fadeUp} className="text-muted-foreground text-lg max-w-xl mx-auto md:mx-0 mb-8 flex items-center justify-center md:justify-start gap-2">
               <MapPin size={20} className="text-primary" />
-              Westdene, Johannesburg, South Africa
+              Cape Town, Western Cape, South Africa
             </motion.p>
             
             <motion.div variants={animationVariants.fadeUp} className="flex flex-col sm:flex-row items-center gap-4 justify-center md:justify-start">
