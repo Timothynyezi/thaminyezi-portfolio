@@ -32,7 +32,7 @@ export function About() {
               I enjoy building robust, scalable applications and exploring real-time technologies.
             </p>
             <p>
-              My journey involves deep dives into C#, ASP.NET Core, and PostgreSQL, always
+              My journey involves deep dives into Java, Springboot C#, ASP.NET Core, and PostgreSQL, always
               aiming to understand the underlying mechanics of modern web services.
             </p>
           </motion.div>
