@@ -7,7 +7,15 @@ import { animationVariants } from "@/lib/utils";
 
 const projectsData = [
   {
-    id: 1,
+    id:1, 
+    name: "Java",
+    description: "A backend-focused learning project: a marketplace connecting clients with freelance artisans (plumbers, electricians, etc.) for renovation work. Java, Spring Boot, PostgreSQL/PostGIS, JWT auth, Paystack integration.",
+    githubUrl: "https://github.com/Timothynyezi/artisan-marketplace",
+    tags: ["Spring Boot", "PostgreSQL", "PostGIS", "JPA/Hibernate", "JWT", "REST API", "System Design"],
+    featured: true,
+  },
+  {
+    id: 2,
     name: "Finance Tracker API",
     language: "C#",
     description:
@@ -17,7 +25,7 @@ const projectsData = [
     featured: true,
   },
   {
-    id: 2,
+    id: 3,
     name: "Real-Time Docs Clone",
     language: "C#",
     description:
@@ -27,7 +35,7 @@ const projectsData = [
     featured: true,
   },
   {
-    id: 3,
+    id: 4,
     name: "Habit Logger",
     language: "C#",
     description:
@@ -37,7 +45,7 @@ const projectsData = [
     featured: false,
   },
   {
-    id: 4,
+    id: 5,
     name: "Calculator",
     language: "C#",
     description:
@@ -47,7 +55,7 @@ const projectsData = [
     featured: false,
   },
   {
-    id: 5,
+    id: 6,
     name: "Math Game",
     language: "C#",
     description:
@@ -57,7 +65,7 @@ const projectsData = [
     featured: false,
   },
   {
-    id: 6,
+    id: 7,
     name: "Grep Implementation",
     language: "Java",
     description:
