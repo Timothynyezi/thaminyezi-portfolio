@@ -8,23 +8,24 @@ const skillsData = [
   {
     id: 1,
     category: "Primary",
-    skills: ["C#", ".NET 8", "ASP.NET Core Web API", "Entity Framework Core", "SignalR", "LINQ"],
+    skills: ["Spring Boot", "PostgreSQL", "PostGIS", "JPA/Hibernate", "JWT", "REST API", "System Design"],
   },
   {
     id: 2,
+    category: "Secondary",
+    skills: ["C#", ".NET 8", "ASP.NET Core Web API", "Entity Framework Core", "SignalR", "LINQ"],
+  },
+  {
+    id: 3,
     category: "Auth & API",
     skills: ["JWT Bearer Authentication", "REST APIs", "Swagger / OpenAPI", "DTOs"],
   },
   {
-    id: 3,
-    category: "Databases",
-    skills: ["SQL Server", "SQLite", "SQL", "NoSQL", "Database Design & Normalisation"],
-  },
-  {
     id: 4,
-    category: "Data Engineering",
-    skills: ["ETL Pipelines", "Apache Spark", "Apache Kafka", "Apache Airflow", "HDFS", "Amazon S3"],
+    category: "Databases",
+    skills: ["SQLite", "PostgreSQL", "Database Design & Normalisation"],
   },
+  
   {
     id: 5,
     category: "Cloud & DevOps",
@@ -33,7 +34,7 @@ const skillsData = [
   {
     id: 6,
     category: "Other Languages",
-    skills: ["Python", "Java", "JavaScript", "HTML5", "CSS3"],
+    skills: ["Python", "JavaScript",],
   },
   {
     id: 7,
